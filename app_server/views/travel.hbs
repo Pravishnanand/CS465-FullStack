@@ -9,7 +9,7 @@
 <body>
 	<div id="background">
 		<div id="page">	
-			{{> header }}		
+			{{> header }}
 			<div id="contents">
 				<div class="box">
 					<div>
@@ -18,7 +18,7 @@
 							<ul id="sites">
 			{{#each trips}}
 								<li>
-									<a href="/travel"><img src="images/{{this.image}}" alt="Img"</a>
+									<a href="/travel"><img src="images/{{this.image}}" alt="Img"></a>
 									<h2><a href="/travel">{{this.name}}</a></h2>
 									{{{this.description}}}
 								</li>
@@ -29,7 +29,7 @@
 				</div>
 			</div>
 		</div>
-		{{> footer }}
+		{{> footer }} 
 	</div>
 </body>
 </html>
