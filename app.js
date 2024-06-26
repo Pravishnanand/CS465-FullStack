@@ -1,8 +1,8 @@
 require('dotenv').config();
 console.log('JWT_SECRET:', process.env.JWT_SECRET);
 
-const createError = require('http-errors');
 const express = require('express');
+const createError = require('http-errors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');

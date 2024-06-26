@@ -38,7 +38,7 @@ userSchema.methods.generateJwt = function() {
     email: this.email,
     name: this.name,
     exp: parseInt(expiry.getTime() / 1000, 10),
-  }, process.env.JWT_SECRET); // Ensure JWT_SECRET is in .env
+  }, process.env.JWT_SECRET);
 };
 
 // Register the User model with Mongoose

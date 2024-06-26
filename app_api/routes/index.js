@@ -1,9 +1,10 @@
 const express = require('express'); // Express app
 const router = express.Router();    // Router logic
-const jwt = require('express-jwt');
+const { expressjwt: jwt } = require('express-jwt');
+
 const auth = jwt({
     secret: process.env.JWT_SECRET,
-    userProperty: 'payload'
+    algorithms: ['HS256'],
 });
 
 const authController = require('../controllers/authentication');
@@ -11,8 +12,18 @@ const authController = require('../controllers/authentication');
 const tripsController = require('../controllers/trips');
 
 router
-    .post('/login', authController.login)
-    .post('/register', authController.register);
+    .route('/login')
+    .post((req, res, next) => {
+        console.log('Login route hit');
+        next();
+    }, authController.login);
+
+router
+    .route('/register')
+    .post((req, res, next) => {
+        console.log('Register route hit');
+        next();
+    }, authController.register);
     
 // define route for one trips endpoint
 router
@@ -25,7 +36,7 @@ router
 router
     .route('/trips/:tripCode')
     .get(tripsController.tripsFindByCode)
-    .put(auth, tripsController.tripsUpdateTrip);
+    .put(auth, tripsController.tripsUpdateTrip)
+    .delete(auth, tripsController.tripsDeleteTrip);
 
 module.exports = router;
-

@@ -1,25 +1,7 @@
 const mongoose = require('mongoose');
-const Trip = mongoose.model('Trip'); // Ensure the Trip model is imported
-const User = mongoose.model('User'); // Ensure the User model is imported
-
-// Function to get user from JWT payload
-const getUser = (req, res, callback) => {
-  if (req.payload && req.payload._id) {
-    User.findById(req.payload._id)
-      .exec((err, user) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({ error: 'Internal Server Error' });
-        }
-        if (!user) {
-          return res.status(404).json({ message: "User not found" });
-        }
-        callback(req, res, user);
-      });
-  } else {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-};
+const Trip = require('../models/travlr');
+const Model = mongoose.model('trips'); // Ensure the Trip model is imported
+const User = mongoose.model('users');
 
 // GET: /trips - lists all the trips
 const tripsList = async (req, res) => {
@@ -44,6 +26,25 @@ const tripsFindByCode = async (req, res) => {
     return res.status(200).json(trip);
   } catch (err) {
     return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+// Function to get user from JWT payload
+const getUser = (req, res, callback) => {
+  if (req.payload && req.payload._id) {
+    User.findById(req.payload._id)
+      .exec((err, user) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        if (!user) {
+          return res.status(404).json({ message: "User not found" });
+        }
+        callback(req, res, user);
+      });
+  } else {
+    return res.status(401).json({ message: "Unauthorized" });
   }
 };
 
